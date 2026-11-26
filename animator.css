@@ -1,0 +1,297 @@
+/* All styling for the Animator app. Its code only attaches class names. */
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { width: 100%; height: 100%; overflow: hidden; }
+
+/* ── Layout: two columns ─────────────────────────────────────────────────── */
+
+.app {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  background: #1a1a2e;
+  color: #d4c5a0;
+  font-family: system-ui, sans-serif;
+  font-size: 14px;
+}
+
+/* Left column: the code editor. */
+.code-col {
+  width: 42%;
+  min-width: 320px;
+  max-width: 720px;
+  flex-shrink: 0;
+  display: flex;
+  border-right: 1px solid #3a3a5e;
+  background: #0f0f1e;
+}
+
+/* The code column stays in the DOM when collapsed, so CodeMirror keeps its
+   state; hiding it gives the right column the full width. */
+.app.code-hidden .code-col { display: none; }
+
+/* A small emoji button (the code pane's collapse toggle, and the playback
+   controls once they exist). */
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #2a2a4a;
+  color: #d4c5a0;
+  border: 1px solid #4a4a8a;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 1;
+  padding: 5px 8px;
+}
+.icon-btn:hover { background: #3a3a5e; }
+
+/* ── Code panel (left column) ───────────────────────────────────────────── */
+
+.code-panel {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.code-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 14px;
+  background: #1a1a3e;
+  border-bottom: 1px solid #3a3a5e;
+}
+.code-title {
+  color: #e8d8b0;
+  font-family: 'Georgia', serif;
+  font-size: 16px;
+  letter-spacing: 1px;
+}
+
+/* Wrapper holding the editor. */
+.code-editor-wrap {
+  flex: 1;
+  min-height: 0;
+  position: relative;
+  display: flex;
+}
+/* CodeMirror mount node: grows to fill the panel. */
+.code-editor {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  overflow: hidden;
+  background: #0d0d1a;
+}
+.code-editor .cm-editor { width: 100%; height: 100%; }
+
+/* Collapsible reference of the built-ins available to draw functions. */
+.reference {
+  margin: 8px 14px 0;
+  border: 1px solid #3a3a5e;
+  border-radius: 4px;
+  background: #0d0d1a;
+  overflow: hidden;
+}
+.reference-summary {
+  padding: 6px 12px;
+  cursor: pointer;
+  color: #b8a888;
+  font-family: monospace;
+  font-size: 12px;
+  user-select: none;
+}
+.reference-summary:hover { color: #e8d8b0; }
+.reference-body {
+  padding: 4px 12px 10px;
+  border-top: 1px solid #3a3a5e;
+}
+.reference-group { margin-top: 8px; }
+.reference-group-title {
+  color: #8a8aca;
+  font-family: monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 4px;
+}
+.reference-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 10px;
+  padding: 1px 0;
+}
+.reference-sig {
+  color: #89ddff;
+  font-family: monospace;
+  font-size: 12px;
+  white-space: pre;
+}
+.reference-desc { color: #6a7a8a; font-size: 11px; }
+
+/* ── Animation pane (right column) ──────────────────────────────────────── */
+
+/* The toolbar stacked above the animation. */
+.anim-col {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* The drawing menu, playback buttons, and sliders. */
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 18px;
+  padding: 8px 14px;
+  background: #1a1a3e;
+  border-bottom: 1px solid #3a3a5e;
+}
+.toolbar-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* The drop-down menu of saved drawings. */
+.drawing-select {
+  background: #2a2a4a;
+  color: #e8d8b0;
+  border: 1px solid #4a4a8a;
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-family: monospace;
+  font-size: 13px;
+  cursor: pointer;
+  max-width: 220px;
+}
+.drawing-select:hover { background: #3a3a5e; }
+
+/* A labelled range input, with its current value after it. */
+.slider {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: monospace;
+  font-size: 12px;
+  color: #b8a888;
+}
+.slider input[type="range"] {
+  width: 120px;
+  accent-color: #8a8aca;
+  cursor: pointer;
+}
+.slider-value {
+  min-width: 4.5ch;
+  color: #e8d8b0;
+  font-variant-numeric: tabular-nums;
+}
+
+.canvas-area {
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0a0a14;
+  container-type: size;
+}
+
+/* A centred square that fits the (possibly non-square) animation area. Give your
+   <canvas> this class, so that drawings aren't stretched. */
+.canvas {
+  width: min(100cqw, 100cqh);
+  height: min(100cqw, 100cqh);
+}
+
+/* Why the code didn't parse or evaluate, over the bottom of the (empty)
+   animation. */
+.error-message {
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 12px;
+  max-height: 40%;
+  overflow: auto;
+  margin: 0;
+  padding: 10px 14px;
+  border: 1px solid #8a3a4a;
+  border-left: 4px solid #e06c75;
+  border-radius: 4px;
+  background: rgba(40, 12, 20, 0.92);
+  color: #ffb4bb;
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 13px;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* ── Extension: the Chomp game ─────────────────────────────────────────── */
+
+/* Play/Stop and Autopilot, in the toolbar. */
+.game-btn {
+  background: #173a35;
+  color: #b9fff0;
+  border: 1px solid #2f8f7e;
+  border-radius: 4px;
+  padding: 4px 10px;
+  font-size: 13px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.game-btn:hover { background: #1f4d46; }
+.game-btn.playing { background: #4a1f2a; color: #ffc9d2; border-color: #a04a5e; }
+.game-btn.playing:hover { background: #5e2735; }
+.game-btn.autopilot { background: #2a2a4a; color: #d4c5a0; border-color: #4a4a8a; }
+.game-btn.autopilot.on { background: #3a3470; color: #fff; border-color: #a89cff; }
+
+/* The score bar and messages, over the animation. They let clicks and swipes
+   through to the canvas. */
+.hud {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+}
+/* During a game, the square animation shrinks to leave a strip at the top
+   for the score bar (cq units measure the content box, inside the padding). */
+.canvas-area.playing { padding-top: 46px; touch-action: none; }
+.hud-bar {
+  display: flex;
+  gap: 22px;
+  margin-top: 8px;
+  padding: 5px 16px;
+  border-radius: 999px;
+  background: rgba(10, 10, 20, 0.72);
+  border: 1px solid #2f2f55;
+}
+.hud-stat { display: flex; align-items: baseline; gap: 6px; }
+.hud-label { color: #7f7fb5; font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; }
+.hud-value { color: #f3e6c2; font-size: 15px; font-variant-numeric: tabular-nums; }
+.hud-lives { color: #3ee6c4; font-size: 13px; letter-spacing: 2px; }
+.hud-message {
+  margin: auto 24px 9%;
+  max-width: 520px;
+  padding: 10px 18px;
+  border-radius: 8px;
+  background: rgba(10, 10, 20, 0.8);
+  border: 1px solid #3ee6c4;
+  color: #e9fffa;
+  font-size: 15px;
+  text-align: center;
+  line-height: 1.45;
+}
