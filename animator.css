@@ -255,6 +255,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; }
 .game-btn.playing:hover { background: #5e2735; }
 .game-btn.autopilot { background: #2a2a4a; color: #d4c5a0; border-color: #4a4a8a; }
 .game-btn.autopilot.on { background: #3a3470; color: #fff; border-color: #a89cff; }
+.game-btn.sound { min-width: 38px; padding-left: 8px; padding-right: 8px; }
 
 /* The score bar and messages, over the animation. They let clicks and swipes
    through to the canvas. */
